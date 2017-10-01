@@ -1,0 +1,140 @@
+\documentstyle[rail]{article}
+\begin{document}
+\center{\large Syntax of Pascal--}
+
+\railoptions{-i}
+\begin{rail}
+Program : "program" ProgramID ";" Block "." ;
+\end{rail}
+\begin{rail}
+Block : ( () | ConstantDefinitions )
+	( () | TypeDefinitions )
+	( () | VariableDefinitions ) \\
+	( ProcedureDefinition + )
+	CompoundStmt
+      ;
+\end{rail}
+\begin{rail}
+ConstantDefinitions : "const" ( ConstantDefinition + ) ;
+\end{rail}
+\begin{rail}
+ConstantDefinition : ConstantIDr "=" Constant ";" ;
+\end{rail}
+\begin{rail}
+TypeDefinitions : "type" ( TypeDefinition + ) ;
+\end{rail}
+\begin{rail}
+TypeDefinition : TypeID "=" NewType ";" ;
+\end{rail}
+\begin{rail}
+NewType : NewArrayType | NewRecordType ;
+\end{rail}
+\begin{rail}
+NewArrayType : "array" "[" IndexRange "]" "of" TypeID ;
+\end{rail}
+\begin{rail}
+IndexRange : Constant ".." Constant ;
+\end{rail}
+\begin{rail}
+NewRecordType : "record" FieldList "end" ;
+\end{rail}
+\begin{rail}
+FieldList : RecordSection + ";" ;
+\end{rail}
+\begin{rail}
+RecordSection : ( FieldID + "," ) ":" TypeID ;
+\end{rail}
+\begin{rail}
+VariableDefinitions : "var" ( VariableDefinition + ) ;
+\end{rail}
+\begin{rail}
+VariableDefinition : VariableGroup ";" ;
+\end{rail}
+\begin{rail}
+VariableGroup : ( VariableID + "," ) ":" TypeID ;
+\end{rail}
+\begin{rail}
+ProcedureDefinition : "procedure" ProcedureID ProcedureBlock ";" ;
+\end{rail}
+\begin{rail}
+ProcedureBlock : ( () | ( "(" FormalParameters ")" ) ) ";" Block ;
+\end{rail}
+\begin{rail}
+FormalParameters : ParameterDefinition + ";" ;
+\end{rail}
+\begin{rail}
+ParameterDefinition : ( () | "var" ) VariableGroup ;
+\end{rail}
+\begin{rail}
+Statement : AssignmentStmt | ProcedureStmt | IfStmt | WhileStmt |
+CompoundStmt | Empty ;
+\end{rail}
+\begin{rail}
+AssignmentStmt : VariableAccess ":=" Expression ;
+\end{rail}
+\begin{rail}
+ProcedureStmt : ProcedureID ( () | ( "(" ActualParameters ")" ) ) ;
+\end{rail}
+\begin{rail}
+ActualParameters : ActualParameter + "," ;
+\end{rail}
+\begin{rail}
+ActualParameter : Expression ;
+\end{rail}
+\begin{rail}
+IfStmt : "if" Expression "then" Statement ( () | ( "else" Statement ) ) ;
+\end{rail}
+\begin{rail}
+WhileStmt : "while" Expression "do" Statement ;
+\end{rail}
+\begin{rail}
+CompoundStmt : "begin" ( Statement + ";" ) "end" ;
+\end{rail}
+\begin{rail}
+Expression : SimpleExpr ( () | ( RelationalOp SimpleExpr ) ) ;
+\end{rail}
+\begin{rail}
+RelationalOp : "<" | "=" | ">" | "<=" | "<>" | ">=" ;
+\end{rail}
+\begin{rail}
+SimplExpr : ( () | SignOp ) Term ( ( AdditiveOp Term ) + ) ;
+\end{rail}
+\begin{rail}
+SignOp : "+" | "-" ;
+\end{rail}
+\begin{rail}
+AdditiveOp : "+" | "-" | "or" ;
+\end{rail}
+\begin{rail}
+Term : Factor ( ( MultiplicativeOp Factor ) + ) ;
+\end{rail}
+\begin{rail}
+MultiplicativeOp : "*" | "div" | "mod" | "and" ;
+\end{rail}
+\begin{rail}
+Factor : Constant | VariableAccess | ( "(" Expression ")" ) | ( "not" Factor ) ;
+\end{rail}
+\begin{rail}
+VariableAccess : VariableID ( Selector + ) ;
+\end{rail}
+\begin{rail}
+Selector : IndexSelector | FieldSelector ;
+\end{rail}
+\begin{rail}
+IndexSelector : "[" Expression "]" ;
+\end{rail}
+\begin{rail}
+FieldSelector : "." FieldID ;
+\end{rail}
+\begin{rail}
+Constant : Integer | ConstantID ;
+\end{rail}
+\begin{rail}
+Integer : Digit + ;
+\end{rail}
+\begin{rail}
+Identifier : Letter ( ( Letter | Digit ) * ) ;
+\end{rail}
+
+\end{document}
+
