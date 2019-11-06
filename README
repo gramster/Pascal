@@ -1,5 +1,5 @@
 A Pascal compiler and p-code virtual machine. IIRC I extracted this from
-the Estelle one in the PEW.
+the Estelle one in the PEW (https://github.com/gramster/PEW).
 
 
 
