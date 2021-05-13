@@ -1,6 +1,5 @@
 A Pascal compiler and p-code virtual machine. IIRC I extracted this from
-the Estelle one in the PEW (https://github.com/gramster/PEW).
-
-
-
-
+the Estelle one in the PEW, as Estelle is a superset of Pascal.
+(https://github.com/gramster/PEW). Only integers are supported; this harkens
+from the days when floating point operations actually required a dedicated
+coprocessor to be performant and not all computers had them.
